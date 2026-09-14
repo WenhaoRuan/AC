@@ -1,0 +1,23 @@
+1
+    Sin optimizar: 10,138,928             Optimizado: 4,138,922
+Explicación de los resultados:
+    Asi como hemos visto en el previo de esta sesion seguramente se han reducido el numero de
+    instrucciones estaticas de todo el programa, incluidas las del bucle, lo que ha resultado 
+    en una diferencia de mas de la mitad.
+
+2
+                   Tiempo       Ciclos          Instrucciones   MIPS        CPI    Frec. Speedup 
+-O0                382.152 ms   1,232,493,577   2,505,728,913   6,556.9     0.492  3.26 GHz    0
+-O2                98.452 ms    311,249,904     579,890,958     5,890.1     0.537  3.16 GHz  3.9
+-O2 + “inlining”   93.918 ms    288,271,947     479,282,367     5,103.2     0.601  3.07 GHz  4.1
+
+3
+        Ciclos Programa     Ciclos rutina       % de Ciclos         Speedup teórico máximo 
+-O0     1,232,493,577       397,143,362         32.22               1.48
+-O2     311,249,904         21,265              0.007               1.00
+
+Las variaciones entre las dos filas del apartado anterior se deben a:
+    Si miramos lo que hace el codigo de pierde tiempo es un doble bucle que suma 1 a
+    una variable. El tamaño del bucle es relativo al parametro que se le pasa a la funcion
+    que se define como 10,000 en el programa. La optimizacion del O2 probablemente desnvuelva
+    ese bucle o haga algun tipo de refactoring que cambie de esa forma tan drastica el coste.

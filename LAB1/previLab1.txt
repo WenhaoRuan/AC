@@ -1,0 +1,49 @@
+PREVI LAB1
+    1
+Hacer inlining significa coger el codigo de la funcion y pegarlo en los sitios en que la
+funcion es llamada, todo esto para evitar el overhead de crear el stack de parametros,
+direccion de retorno, etc.
+    2
+La opcion para que se haga inline de todas las funciones simples es -finline-functions.
+Esta no viene por defecto al activar -O2 sino con -O3, las optimizaciones del O2 si activan 
+algunos inlines pero no de todas las funciones simples.
+-finline-limit sirve para definir un limite de tamaño para que funciones hacer inline, la
+forma que tiene de medir no se basa en lineas de codigo sino que es una unidad interna propia
+de cada compilador. La utilidad es para que no haga inline de funciones que harian explotar
+el tamaño del ejecutable final.
+    3
+Si disponemos del archivo assembler todas las funciones quedan declaradas por su nombre
+antes de su codigo asembler, a traves de la terminal con un grep i una pipe con el archivo
+assembler tal que grep "Juanito" codigo.asm, y esto deberia imprimir las lineas donde sale,
+en concreto la linea de donde esta declarada la funcion, si lo esta, y las lineas donde
+se usa, si es que se usa.
+    4
+Inst. estaticas : 5     Inst. dinamicas : 5000000
+MIPS: 357.14             IPC: 0.3125                  CPI: 3.2
+freq: 1.143 GHz
+    5
+Inst. estaticas : 4     Inst. dinamicas : 4000000
+MIPS: 571.43            IPC: 0.5                      CPI: 2
+freq: 1.143 GHz(la mateixa)
+Las igualdades y diferencias observadas respecto al apartado anterior se deben a:
+Las diferencias se deben a las optimizaciones realizadas, permiten reducir el tiempo
+entre instrucciones dando un speedup del 60% (1.6 veces), eso se refleja en el MIPS,
+y tambien mas notablemente en el tiempo de ejecucion que experimenta un speedup del 100%
+(2 veces mas rapido). Lo que se mantiene igual es la frequencia del procesador lo cual tiene
+todo el sentido del mundo ya que no se ha cambiado el procesador.
+    6
+Si el codigo es instantaneo: 7.5%   Si se compila con -O: 3.6%
+    7
+Para obtener el MIPS podemos primero ejecutar el programa usando el GetTime y entonces para 
+obtener el numero de instrucciones dinamicas usaremos el valgrind, dividir uno por el otro,
+recordando que el GetTime da el resultado en ms, i para medir el IPC podemos usar el getticks
+i dividir el numero de instrucciones por este resultado.
+Un detalle importante es usar taskset como por ejemplo taskset -c 1 ./exe para evitar que migre
+de un nucleo a otro y esto afecte las mesuras en el caso del tiempo y los ticks o ciclos.
+    8
+Geometrica: 7.92 ms         Aritmetica: 9.6 ms
+Descartando valores:
+Geometrica: 10.13 ms        Aritmetica: 10.33 ms
+Se observa que:
+La geometrica se acerca a la artimetica, indicando una menor variancia entre los resultados,
+menos "offshoots".
