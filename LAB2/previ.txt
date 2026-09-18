@@ -1,0 +1,36 @@
+    1
+
+Mou el literal 1 al registre eax(4B)
+Esta malament escrit, un numero per si sol no pot ser una variable global
+Esta malament escrit, falta el %
+Esta malament escrit, falta el %
+
+    2
+
+Si ebx es mes gran o igual a eax salta a fin
+
+    3
+
+Si eax es mes gran o igual a ebx salta a fin
+
+    4
+
+        MOVL $0, %EBX
+        MOVL b, %ECX
+for:    CMPL a, %ECX
+        JGE endFor
+if:     MOVL b, %EDX
+        ADDL a, %EDX
+        SHRL 1, %EDX
+        SUBL %EDX, a
+endIf:  INCL %EBX
+        CMPL $200, %EBX
+        JL for
+endFor:
+
+    5
+
+for(;i > 0; --i)
+    if(a != b)
+        a = (b - a) * 3;
+
