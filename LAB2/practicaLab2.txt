@@ -1,0 +1,17 @@
+    1
+
+mano[4] esta composat de dos valors, num que en el moment d'entrar val 4
+i palo que en el moment d'entrar val 0
+
+    2
+
+Si executem 45 instruccions mes o stepi 45 en la finestra del gdb de ddd edx val 0.
+
+    3
+
+Ara en num[4] el primer paramentre, num, es 7 i el segon parametre, palo, es 0.
+
+    4
+
+%EBP apunta a 0xFFFFC918, en ebp + 8 hi ha 0xFFFFC920, 4294953249, i en la anterior o ebp + 4 
+em dona un error.

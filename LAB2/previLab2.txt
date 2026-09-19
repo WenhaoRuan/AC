@@ -1,0 +1,53 @@
+    1
+
+Mou el literal 1 al registre eax(4B)
+Esta malament escrit, un numero per si sol no pot ser una variable global
+Esta malament escrit, falta el %
+Esta malament escrit, falta el %
+
+    2
+
+Si ebx es mes gran o igual a eax salta a fin
+
+    3
+
+Si eax es mes gran o igual a ebx salta a fin
+
+    4
+
+        MOVL $0, %EBX
+        MOVL b, %ECX
+for:    CMPL a, %ECX
+        JGE endFor
+if:     MOVL b, %EDX
+        ADDL a, %EDX
+        SHRL 1, %EDX
+        SUBL %EDX, a
+endIf:  INCL %EBX
+        CMPL $200, %EBX
+        JL for
+endFor:
+
+    5
+
+for(;i > 0; --i)
+    if(a != b)
+        a = (b - a) * 3;
+
+    6
+
+El breakpoint te com a trigger una linea de codi o instr concreta,
+mentres que el watchpoint utilitza varibles com a trigger, ja sigui
+la lectura com la modificació d'aquests.
+
+    7
+
+En la pagina de documentacio de gnu sobre ddd en la seccio 5.1.5 o editing breakpoint
+properties ensenyen que un breakpoint te un parametre editable conegut com ignore count
+que ens permetria fer que la linia sigui ignorada 14 vegades i llavors es triggereja a 
+la 15a vegada.
+
+    8
+Segons la documentaio de gnu per canviar una variable durant l'execucio d'un programa podem
+escriure el seu nom en la barra buscadora que posa () i canviar el valor prenent la tecla set,
+ens surtira una nova finestra en la qual podrem introduir el valor que volguem.
