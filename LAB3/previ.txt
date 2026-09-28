@@ -1,0 +1,51 @@
+    1
+        leal Matriz, %ebx               //ebx = Matriz
+        xorl %eax, %eax                 //eax = i = 0
+        xorl %ecx, %ecx                 //ecx = suma = 0
+        movl N, %esi                    //esi = N
+for:    cmpl %esi, %eax                 //cmp eax i N
+        jge fi                          //if(i >= N) -> break
+        imull $10, %eax, %edx           //edx = i * N
+        addl 8(%ebx, %edx, 4), %ecx     //suma += (@mat + i * N * size_of_int + 2 * size_of_int)
+        incl %eax                       //++i
+        jmp for     
+fi:     
+
+    2
+        leal Matriz, %ebx               //ebx = @Matriz
+        movl $8,  %eax                  //eax = i = 8
+        xorl %ecx, %ecx                 //ecx = suma = 0
+for:    cmpl $400, %eax                 //i cmp N * N
+        jge fi                          //if(i >= N * N) -> break;
+        addl %ecx, (%ebx, %eax)         //suma + mat[i][2]
+        addl $40, %eax                  //i += 10 * size_of_int
+        jmp for
+fi:
+
+    instruccions estatiques
+en 1 s'executen 10, en 2 s'executen 8
+    instruccions dinamiques
+en 1 s'executen 64, i en 2 s'executen 53
+
+    3
+            leal Matriz, %ebx               //ebx = @Matriz
+            leal ResFila, %esi              //esi = @ResFila
+            xorl %eax, %eax                 //eax = i = 0
+            xorl %ecx, %ecx                 //ecx = j = 0
+for:        cmpl $10, %eax                  //i cmp N
+            jge fiFor                       //if(i >= N) -> break
+            movl $1, (%esi, %eax, 4)        //(@ResFila + i * size_of_int) = 1
+while:      imul $10, %eax, %edi            //edi = i * 10
+            addl %ecx, %edi                 //edi += j
+            movl (%ebx, %edi, 4), %edx      //edx = (@Matriz + (i * 10 + j) * size_of_int)
+            cmpl $0, %edx                   //(@Matriz + (i * 10 + j) * size_of_int) cmp 0
+            je fiWhile
+if:         cmpl $100, %edx                  //(@Matriz + (i * 10 + j) * size_of_int) cmp M 
+            jle fiIf
+            subl %edx, (%esi, %eax, 4)      //(@ResFila + i * size_of_int) -= (@Matriz + (i * 10 + j) * size_of_int)
+fiIf:       incl %ecx                       //++j
+            jmp while
+fiWhile:    incl %eax                       //++i
+            xorl %ecx, %ecx                 //j = 0
+            jmp for
+fiFor:
